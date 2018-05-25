@@ -35,8 +35,11 @@ def infer(args):
                 batch_z = np.random.normal(0, 1, [batch_size, z_size]).astype(np.float_)
                 label_data = np.zeros((batch_size, 10), dtype=np.float)
                 label_data[0, which_num] = 1.0
-                image = sess.run(img, feed_dict={z: batch_z, label: label_data}) # [1, height, width, channel]
-                cv.imshow('infer', image[0, :, :, :])
+                images = sess.run(img, feed_dict={z: batch_z, label: label_data}) # [1, height, width, channel] 
+                image = images[0, :, :, :] * 255
+                image = image.astype('uint8')
+                cv.imwrite(str(which_num)+'.jpg', image)
+                cv.imshow('infer', image)
                 cv.waitKey(0)
         elif (which_num == -1): # 每个数字生成10张图片
             batch_size = 100 # 10*10
@@ -52,6 +55,9 @@ def infer(args):
                 for row in range(10):
                     for col in range(10):
                         image[28*row:28*(row+1), 28*col:28*(col+1)] = images[10*row+col]
+                image = image * 255
+                image = image.astype('uint8')
+                cv.imwrite('all.jpg', image)
                 cv.namedWindow('images', cv.WINDOW_NORMAL)
                 cv.imshow('images', image)
                 cv.waitKey()
