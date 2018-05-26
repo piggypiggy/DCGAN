@@ -13,9 +13,12 @@
 ```
 * 生成：
 ```
-    python main.py --mode=infer --num=7
- or python main.py --mode=infer --num=-1
- ```
+    python main.py --mode=infer --num=which_num
+```
+* 或者一次生成所有数字的图像：
+```
+    python main.py --mode=infer --num=-1
+```
  
  ## 生成的图像
  ```
